@@ -12,6 +12,8 @@ def test():
 
     print(content)
 
+    return {}
+
 @app.route('/get-location', methods=['POST'])
 def getLocation():
     lat = request.form['lat']
