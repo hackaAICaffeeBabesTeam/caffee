@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 ADD . /code
 WORKDIR /code
-RUN apt-get -y install \
+RUN apt-get update && apt-get -y install \
     python3.5 \
     python-pip \
     python-dev \
