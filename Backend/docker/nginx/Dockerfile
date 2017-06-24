@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 RUN apt-get update \
-  && apt-get -y install nginx
+  && apt-get -y install nginx openssl
 
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
