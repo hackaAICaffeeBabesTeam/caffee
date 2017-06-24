@@ -3,7 +3,7 @@ nginx:
   links:
     - web:web
   ports:
-    - "443:443"
+    - "80:80"
 
 web:
   build: .
