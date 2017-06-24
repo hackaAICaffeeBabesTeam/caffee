@@ -12,7 +12,7 @@ def test():
 
     print(content)
 
-    return {}
+    return json.dumps({'data': 'Hello!'})
 
 @app.route('/get-location', methods=['POST'])
 def getLocation():
