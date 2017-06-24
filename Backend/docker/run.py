@@ -6,6 +6,12 @@ from random import randint
 
 app = Flask(__name__)
 
+@app.route('/test', methods=['POST'])
+def test():
+    content = request.get_json()
+
+    print(content)
+
 @app.route('/get-location', methods=['POST'])
 def getLocation():
     lat = request.form['lat']
