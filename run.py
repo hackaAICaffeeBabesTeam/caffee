@@ -22,7 +22,7 @@ def test():
         })
 
 @app.route('/conversation-context', methods=['POST'])
-def test():
+def conversationContext():
     content = request.get_json()
     # check for 200 code
     calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
