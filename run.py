@@ -57,14 +57,6 @@ def caffee():
             access_token = content['originalRequest']['data']['user']['accessToken']
 
             add_to_calendar(access_token)
-        else:
-            conversation = {
-                "speech": "Okay, can I help you with anything else?",
-                "displayText": "Okay, can I help you with anything else?",
-                "data": {},
-                "contextOut": [],
-                "source": "eventbrite"
-                }
 
 
     city = content["result"]["parameters"]["geo-city"]
