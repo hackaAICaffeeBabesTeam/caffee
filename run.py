@@ -45,26 +45,34 @@ def caffee():
         }
 
     if 'confirmation' in content["result"]["parameters"]:
-        if content["result"]["parameters"]['confirmation'] == 'yes':
-            conversation = {
-                "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
-                "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
-                "data": {},
-                "contextOut": [],
-                "source": "python"
-                }
+        conversation = {
+            "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+            "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+            "data": {},
+            "contextOut": [],
+            "source": "python"
+            }
 
-            access_token = content['originalRequest']['data']['user']['accessToken']
-
-            add_to_calendar(access_token)
-        else:
-            conversation = {
-                "speech": "Okay, can I help you with anything else?",
-                "displayText": "Okay, can I help you with anything else?",
-                "data": {},
-                "contextOut": [],
-                "source": "eventbrite"
-                }
+        # if content["result"]["parameters"]['confirmation'] == "yes":
+        #     conversation = {
+        #         "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+        #         "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+        #         "data": {},
+        #         "contextOut": [],
+        #         "source": "python"
+        #         }
+        #
+        #     access_token = content['originalRequest']['data']['user']['accessToken']
+        #
+        #     add_to_calendar(access_token)
+        # else:
+        #     conversation = {
+        #         "speech": "Okay, can I help you with anything else?",
+        #         "displayText": "Okay, can I help you with anything else?",
+        #         "data": {},
+        #         "contextOut": [],
+        #         "source": "eventbrite"
+        #         }
 
 
     city = content["result"]["parameters"]["geo-city"]
@@ -76,27 +84,23 @@ def caffee():
 def add_to_calendar(access_token):
     # print(access_token)
     event = json.dumps({
-      "end": {
-          "dateTime": "2017-08-23T20:00:00.000",
-          "timeZone": "America/New_York"
-      },
-      "start": {
-          "dateTime": "2017-08-22T17:00:00.000",
-          "timeZone": "America/New_York"
-      },
-      "attendees": [
-          {
-          "email": "jonahchin7@gmail.com",
-          }
-      ],
-      "attachments": [
-          {
-              "fileUrl": "eventbrite.ca",
-          }
-      ],
-      "reminders":{},
-      "summary": "XLIVE Esports Summit",
-      })
+    	"end": {
+    		"dateTime": "2017-08-23T20:00:00.000",
+    		"timeZone": "America/New_York"
+    	},
+    	"start": {
+    		"dateTime": "2017-08-22T17:00:00.000",
+    		"timeZone": "America/New_York"
+    	},
+    	"attendees": [{
+    		"email": "jonahchin7@gmail.com"
+    	}],
+    	"attachments": [{
+    		"fileUrl": "eventbrite.ca"
+    	}],
+    	"reminders": {},
+    	"summary": "XLIVE Esports Summit"
+    })
 
     calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
 
