@@ -18,7 +18,7 @@ response = {}
 def test():
     content = request.get_json()
 
-    print(content)
+    print(json.dumps(content))
 
     access_token = content['originalRequest']['data']['user']['accessToken']
 
@@ -34,15 +34,71 @@ def test():
 def caffee():
     content = request.get_json()
 
-    access_token = content['originalRequest']['data']['user']['accessToken']
+    print(json.dumps(content))
 
-    return json.dumps({
+    conversation = {
         "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
         "displayText": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
         "data": {},
         "contextOut": [],
         "source": "eventbrite"
-        })
+        }
+
+    if 'confirmation' in content["result"]["parameters"]:
+        if content["result"]["parameters"]['confirmation'] == 'yes':
+            conversation = {
+                "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+                "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+                "data": {},
+                "contextOut": [],
+                "source": "python"
+                }
+
+            access_token = content['originalRequest']['data']['user']['accessToken']
+
+            add_to_calendar(access_token)
+        else:
+            conversation = {
+                "speech": "Okay, can I help you with anything else?",
+                "displayText": "Okay, can I help you with anything else?",
+                "data": {},
+                "contextOut": [],
+                "source": "eventbrite"
+                }
+
+
+    city = content["result"]["parameters"]["geo-city"]
+
+    access_token = content['originalRequest']['data']['user']['accessToken']
+
+    return json.dumps(conversation)
+
+def add_to_calendar(access_token):
+    # print(access_token)
+    event = json.dumps({
+	"end": {
+		"dateTime": "2017-08-23T20:00:01.000",
+		"timeZone": "America/New_York"
+	},
+	"start": {
+		"dateTime": "2017-08-22T17:00:01.000",
+		"timeZone": "America/New_York"
+	},
+	"attendees": [{
+		"email": "jonahchin7@gmail.com"
+	}],
+	"attachments": [{
+		"fileUrl": "eventbrite.ca"
+	}],
+	"reminders": {},
+	"summary": "Custom Event Test"
+})
+
+    calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
+
+    r = requests.post(calendar, data = event)
+    
+    print(r.text)
 
 @app.route('/conversation-context', methods=['POST'])
 def conversationContext():
@@ -225,5 +281,5 @@ def curl_request(lat, lon, radius, price):
         return jsonify('No API!'), e
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=5000)
-    app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
