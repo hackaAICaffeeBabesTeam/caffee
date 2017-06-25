@@ -31,7 +31,7 @@ def test():
         })
 
 @app.route('/caffee', methods=['POST'])
-def test():
+def caffee():
     content = request.get_json()
 
     access_token = content['originalRequest']['data']['user']['accessToken']
