@@ -11,11 +11,27 @@ app.debug = True
 def test():
     content = request.get_json()
 
-    print(json.dumps(content))
+    print(json.dumps(content['originalRequest']['data']['user']['accessToken']))
 
     return json.dumps({
         "speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
         "displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
+        "data": {},
+        "contextOut": [],
+        "source": "DuckDuckGo"
+        })
+
+@app.route('/conversation-context', methods=['POST'])
+def test():
+    content = request.get_json()
+    # check for 200 code
+    calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
+
+    calendar_content = requests.get(calendar).content
+
+    return json.dumps({
+        "speech": "Damn!",
+        "displayText": "Damn!",
         "data": {},
         "contextOut": [],
         "source": "DuckDuckGo"
