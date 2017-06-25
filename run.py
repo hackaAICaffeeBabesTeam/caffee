@@ -11,7 +11,7 @@ app.debug = True
 def test():
     content = request.get_json()
 
-    access_token = content['originalRequest']['data']['user']
+    access_token = content['originalRequest']['data']['user']['access_token']
 
     print(access_token)
 
