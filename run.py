@@ -13,7 +13,7 @@ def test():
 
     access_token = content['originalRequest']['data']['user']['accessToken']
 
-    print(access_token)
+    print(content)
 
     return json.dumps({
         "speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
@@ -32,7 +32,7 @@ def conversationContext():
     city = content["result"]["parameters"]["geo-city"]
 
     if city:
-        print(city)
+        eventbrite_request(city)
     else:
         print("No City!")
 
