@@ -45,7 +45,7 @@ def caffee():
         }
 
     if 'confirmation' in content["result"]["parameters"]:
-        if content["result"]["parameters"]['confirmation '] == "yes":
+        if content["result"]["parameters"]['confirmation'] == "yes":
             conversation = {
                 "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
                 "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
