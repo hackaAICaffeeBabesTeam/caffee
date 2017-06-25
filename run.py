@@ -23,7 +23,7 @@ def test():
     print(content)
 
     return json.dumps({
-        "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this to event to your calendar?",
+        "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
         "displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
         "data": {},
         "contextOut": [],
