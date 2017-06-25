@@ -1,12 +1,19 @@
 from flask import Flask, request, jsonify
 import json
 import requests
+
+import datetime
+
 from urllib2 import URLError
 from random import randint
+from firebase import firebase
+
 
 app = Flask(__name__)
 app.debug = True
 
+users = []
+response = {}
 @app.route('/test', methods=['POST'])
 def test():
     content = request.get_json()
@@ -16,7 +23,7 @@ def test():
     print(content)
 
     return json.dumps({
-        "speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
+        "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this to event to your calendar?",
         "displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
         "data": {},
         "contextOut": [],
@@ -31,6 +38,36 @@ def conversationContext():
 
     city = content["result"]["parameters"]["geo-city"]
 
+    user_id = content['originalRequest']['data']['user']['userId']
+    # conversation_id = # get session id
+    #
+    # found = False
+    #
+    # location_obj = {"city": city, "timestamp": datetime.datetime.now()}
+    # user_data = {"id": user_id, "conversations_data": []}
+    # conversation_data = {"conversation" : []}
+    # current_conversation_context = {"id": session_id , "location": [] , "category": []}
+    #
+    # isCurrentConversationContextSame = # find an existing conversation id ? boolean attribute
+    #
+    # conversation_data["conversation"].append(conversation_data)
+    # user_data["conversations"].append(conversation_data)
+    #
+    # user_data["location"].append(location_obj)
+    #
+    # if len(users) == 0:
+    #     users.append(user_data)
+    # else:
+    #     for user in users:
+    #         if user["id"] == user_id:
+    #             users.remove(user)
+    #             user["location"].append(location_obj)
+    #             found = True
+    #             break
+    #
+    # if found == False:
+    #     users.append(user_data)
+
     if city:
         eventbrite_request(city)
     else:
@@ -44,8 +81,8 @@ def conversationContext():
         calendar_content = requests.get(calendar).content
 
         code = 200
-
-    return eventbrite_request(city), code
+    print(users)
+    return calendar_content, code
 
 def eventbrite_request(location="toronto", lat=None, lon=None):
     eventbrite_token = 'N6AWV37OUJXTCO6MCDTY'
