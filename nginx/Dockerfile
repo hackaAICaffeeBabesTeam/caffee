@@ -6,13 +6,14 @@ RUN apt-get update \
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
 
-RUN mkdir /usr/share/nginx/data
+RUN mkdir /etc/nginx/ssl
+COPY ssl-bundle.crt /etc/nginx/ssl/ssl-bundle.crt
+COPY caffee.tech.key /etc/nginx/ssl/caffee.tech.key
 
-COPY 4B85FA976333A604FF4AEECEE2062452.txt /usr/share/nginx/data/4B85FA976333A604FF4AEECEE2062452.txt
 
 # Copy a configuration file from the current directory
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
