@@ -11,7 +11,9 @@ app.debug = True
 def test():
     content = request.get_json()
 
-    print(json.dumps(content['originalRequest']['data']['user']))
+    access_token = content['originalRequest']['data']['user']
+
+    print(access_token)
 
     return json.dumps({
         "speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
