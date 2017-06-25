@@ -6,6 +6,8 @@ RUN apt-get update \
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
 
+RUN mkdir /usr/share/nginx/html
+
 COPY 4B85FA976333A604FF4AEECEE2062452.txt /usr/share/nginx/html/4B85FA976333A604FF4AEECEE2062452.txt
 
 # Copy a configuration file from the current directory
