@@ -76,27 +76,27 @@ def caffee():
 def add_to_calendar(access_token):
     # print(access_token)
     event = json.dumps({
-    'end': {
-        'dateTime': '2017-08-23T20:00:00.000'
-        'timeZone': 'America/New_York'
-    },
-    'start': {
-        'dateTime': '2017-08-22T17:00:00.000'
-        'timeZone': 'America/New_York'
-    },
-    'attendees': [
-        {
-        'email': 'jonahchin7@gmail.com'
-        }
-    ],
-    'attachments': [
-        {
-            'fileUrl': 'eventbrite.ca'
-        }
-    ],
-    'reminders':{},
-    'summary': 'XLIVE Esports Summit'
-    })
+      "end": {
+          "dateTime": "2017-08-23T20:00:00.000",
+          "timeZone": "America/New_York"
+      },
+      "start": {
+          "dateTime": "2017-08-22T17:00:00.000",
+          "timeZone": "America/New_York"
+      },
+      "attendees": [
+          {
+          "email": "jonahchin7@gmail.com",
+          }
+      ],
+      "attachments": [
+          {
+              "fileUrl": "eventbrite.ca",
+          }
+      ],
+      "reminders":{},
+      "summary": "XLIVE Esports Summit",
+      })
 
     calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
 
