@@ -11,7 +11,7 @@ app.debug = True
 def test():
     content = request.get_json()
 
-    access_token = content['originalRequest']['data']['user']['access_token']
+    access_token = content['originalRequest']['data']['user']['accessToken']
 
     print(access_token)
 
@@ -26,18 +26,36 @@ def test():
 @app.route('/conversation-context', methods=['POST'])
 def conversationContext():
     content = request.get_json()
-    # check for 200 code
-    calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
+    calendar_content = json.dumps({})
+    code = 400
 
-    calendar_content = requests.get(calendar).content
+    city = content["result"]["parameters"]["geo-city"]
 
-    return json.dumps({
-        "speech": "Damn!",
-        "displayText": "Damn!",
-        "data": {},
-        "contextOut": [],
-        "source": "DuckDuckGo"
-        })
+    if city:
+        print(city)
+    else:
+        print("No City!")
+
+    if content['status']['code'] == 200:
+        access_token = content['originalRequest']['data']['user']['accessToken']
+
+        calendar = ('https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token={access_token}').format(access_token=access_token)
+
+        calendar_content = requests.get(calendar).content
+
+        code = 200
+
+    return eventbrite_request(city), code
+
+def eventbrite_request(location="toronto", lat=None, lon=None):
+    eventbrite_token = 'N6AWV37OUJXTCO6MCDTY'
+    eventbrite = ('https://www.eventbriteapi.com/v3/events/search/?'
+                  'location.address={location}&token={token}').format(location=location ,token=eventbrite_token)
+
+    eventbrite_content = requests.get(eventbrite).content
+
+    return eventbrite_content
+
 
 @app.route('/get-location', methods=['POST'])
 def getLocation():
@@ -156,4 +174,5 @@ def curl_request(lat, lon, radius, price):
         return jsonify('No API!'), e
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
