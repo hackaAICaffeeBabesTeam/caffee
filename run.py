@@ -45,34 +45,26 @@ def caffee():
         }
 
     if 'confirmation' in content["result"]["parameters"]:
-        conversation = {
-            "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
-            "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
-            "data": {},
-            "contextOut": [],
-            "source": "python"
-            }
+        if content["result"]["parameters"]['confirmation'] == "yes":
+            conversation = {
+                "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+                "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
+                "data": {},
+                "contextOut": [],
+                "source": "python"
+                }
 
-        # if content["result"]["parameters"]['confirmation'] == "yes":
-        #     conversation = {
-        #         "speech": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
-        #         "displayText": "Awesome! This event has been added to your calendar. Further details for ticket purchasing and navigation have been sent to your phone.",
-        #         "data": {},
-        #         "contextOut": [],
-        #         "source": "python"
-        #         }
-        #
-        #     access_token = content['originalRequest']['data']['user']['accessToken']
-        #
-        #     add_to_calendar(access_token)
-        # else:
-        #     conversation = {
-        #         "speech": "Okay, can I help you with anything else?",
-        #         "displayText": "Okay, can I help you with anything else?",
-        #         "data": {},
-        #         "contextOut": [],
-        #         "source": "eventbrite"
-        #         }
+            access_token = content['originalRequest']['data']['user']['accessToken']
+
+            add_to_calendar(access_token)
+        else:
+            conversation = {
+                "speech": "Okay, can I help you with anything else?",
+                "displayText": "Okay, can I help you with anything else?",
+                "data": {},
+                "contextOut": [],
+                "source": "eventbrite"
+                }
 
 
     city = content["result"]["parameters"]["geo-city"]
@@ -289,5 +281,5 @@ def curl_request(lat, lon, radius, price):
         return jsonify('No API!'), e
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=5000)
-    app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
