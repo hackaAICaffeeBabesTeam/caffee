@@ -18,16 +18,30 @@ response = {}
 def test():
     content = request.get_json()
 
-    access_token = content['originalRequest']['data']['user']['accessToken']
-
     print(content)
+
+    access_token = content['originalRequest']['data']['user']['accessToken']
 
     return json.dumps({
         "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
-        "displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
+        "displayText": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
         "data": {},
         "contextOut": [],
-        "source": "DuckDuckGo"
+        "source": "eventbrite"
+        })
+
+@app.route('/caffee', methods=['POST'])
+def test():
+    content = request.get_json()
+
+    access_token = content['originalRequest']['data']['user']['accessToken']
+
+    return json.dumps({
+        "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
+        "displayText": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
+        "data": {},
+        "contextOut": [],
+        "source": "eventbrite"
         })
 
 @app.route('/conversation-context', methods=['POST'])
