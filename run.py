@@ -7,25 +7,9 @@ app.debug = True
 users = []
 response = {}
 
-@app.route('/test2', methods=['GET'])
-def test2():
-    return json.dumps({"message": "Hello World!"})
-
-@app.route('/test', methods=['POST'])
+@app.route('/test', methods=['GET'])
 def test():
-    content = request.get_json()
-
-    print(json.dumps(content))
-
-    access_token = content['originalRequest']['data']['user']['accessToken']
-
-    return json.dumps({
-        "speech": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
-        "displayText": "According to your previous interest in esports, I found an event that fits into your schedule on August 22nd. The tickets are $795. Do you want to add this event to your calendar?",
-        "data": {},
-        "contextOut": [],
-        "source": "eventbrite"
-        })
+    return json.dumps({"message": "Hello World!"})
 
 @app.route('/caffee', methods=['POST'])
 def caffee():
@@ -90,7 +74,7 @@ def add_to_calendar(access_token):
     print(r.text)
 
 @app.route('/conversation-context', methods=['POST'])
-def conversationContext():
+def conversation_context():
     content = request.get_json()
     calendar_content = json.dumps({})
     code = 400
