@@ -6,6 +6,11 @@ app.debug = True
 
 users = []
 response = {}
+
+@app.route('/test2', methods=['GET'])
+def test2():
+    return json.dumps({"message": "Hello World!"})
+
 @app.route('/test', methods=['POST'])
 def test():
     content = request.get_json()
