@@ -3,7 +3,7 @@ FROM python:3.4-slim
 ADD . /code
 WORKDIR /code
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get -y install \
     build-essential \
     libssl-dev \
     libffi-dev \

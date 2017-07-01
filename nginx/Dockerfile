@@ -1,7 +1,6 @@
 FROM nginx:latest
 
-RUN apt-get update \
-  && apt-get -y install openssl
+RUN apt-get update && apt-get -y install openssl
 
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
